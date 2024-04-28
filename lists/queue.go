@@ -6,6 +6,7 @@ import (
 
 type Queue[T any] struct {
 	head   *ListNode[T]
+	tail   *ListNode[T]
 	length int
 }
 
@@ -15,18 +16,15 @@ func (q *Queue[T]) Push(v T) {
 	}
 
 	q.length++
-	if q.head == nil {
+	if q.length == 1 {
 		q.head = node
+		q.tail = node
 		return
 	}
 
-	curr := q.head
-	for curr.next != nil {
-		curr = curr.next
-	}
-
-	curr.next = node
-	node.prev = curr
+	q.tail.next = node
+	node.prev = q.tail
+	q.tail = node
 }
 
 func (q *Queue[T]) Pop() (T, error) {
