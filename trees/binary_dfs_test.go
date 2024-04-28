@@ -5,7 +5,7 @@ import (
 	"testing"
 )
 
-func TestBTree(t *testing.T) {
+func TestDFSWalk(t *testing.T) {
 	h := &BTreeNode[int]{value: 1}
 	h.left = &BTreeNode[int]{value: 2}
 	h.right = &BTreeNode[int]{value: 3}
