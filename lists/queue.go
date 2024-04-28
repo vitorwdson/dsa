@@ -1,6 +1,8 @@
 package lists
 
-import "errors"
+import (
+	"errors"
+)
 
 type Queue[T any] struct {
 	head   *ListNode[T]
@@ -12,13 +14,19 @@ func (q *Queue[T]) Push(v T) {
 		value: v,
 	}
 
+	q.length++
 	if q.head == nil {
 		q.head = node
-	} else {
-		q.head.next = node
-		node.prev = q.head
+		return
 	}
-	q.length++
+
+	curr := q.head
+	for curr.next != nil {
+		curr = curr.next
+	}
+
+	curr.next = node
+	node.prev = curr
 }
 
 func (q *Queue[T]) Pop() (T, error) {
